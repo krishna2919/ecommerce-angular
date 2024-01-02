@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { LogIn } from '../data-types/login-dataTypes';
-import { jwtDecode } from 'jwt-decode';
+import * as AuthActions from '../auth/auth.actions';
+import { AuthState } from '../auth/auth.reducer';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,34 +14,28 @@ import { jwtDecode } from 'jwt-decode';
 export class LoginService {
   private apiUrl =
     'https://e-commerce-pharmacy-74f9.onrender.com/api/user/login';
-  isLoggedIn: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store<AuthState>,
+    private authService: AuthService
+  ) {}
 
   login(data: LogIn): Observable<any> {
     const result = {
       ...data,
       role: 'Admin',
     };
-    return this.http
-      .post(this.apiUrl, result)
 
-      .pipe(
-        map((res: any) => {
-          if (res.data && res.data.token) {
-            const decodedToken: any = jwtDecode(res.data.token);
-            localStorage.setItem('role', decodedToken.role);
-            let user = {
-              ...data,
-              token: res.data.token,
-              id: res.data.id,
-              role: decodedToken.role,
-            };
-            this.isLoggedIn.next(true);
-            localStorage.setItem('isLoggedIn', 'true');
-          }
-          return res;
-        })
-      );
+    return this.http.post(this.apiUrl, result).pipe(
+      map((res: any) => {
+        if (res.data && res.data.token) {
+          const token = res.data.token;
+          this.store.dispatch(AuthActions.setToken({ token }));
+          this.authService.setLoggedIn(true);
+        }
+        return res;
+      })
+    );
   }
 }

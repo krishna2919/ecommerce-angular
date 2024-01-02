@@ -15,7 +15,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ToastrModule } from 'ngx-toastr';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 
@@ -35,10 +34,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-top-right', // Adjust this based on your layout
-      preventDuplicates: true,
-    }),
     MatInputModule,
     HttpClientModule,
     MatCardModule,
