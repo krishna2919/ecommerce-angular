@@ -6,7 +6,7 @@ import {
   FormControl,
   FormGroup,
 } from '@angular/forms';
-import { LoginService } from '../../app/services/login.service';
+import { LoginService } from '../services/api/login.service';
 import { LogIn } from '../../app/data-types/login-dataTypes';
 import { CustomValidators } from 'ng2-validation';
 import { AuthService } from '../auth/auth.service';

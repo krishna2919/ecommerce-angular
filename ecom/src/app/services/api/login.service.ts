@@ -3,18 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { LogIn } from '../data-types/login-dataTypes';
-import * as AuthActions from '../auth/auth.actions';
-import { AuthState } from '../auth/auth.reducer';
-import { AuthService } from '../auth/auth.service';
+import { LogIn } from '../../data-types/login-dataTypes';
+import * as AuthActions from '../../auth/auth.actions';
+import { AuthState } from '../../auth/auth.reducer';
+import { AuthService } from '../../auth/auth.service';
+import { API_BASE_URL } from './apiUrl';
+import { login } from './apiRoutes';
+import { role } from 'src/app/enums/enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl =
-    'https://e-commerce-pharmacy-74f9.onrender.com/api/user/login';
-
   constructor(
     private http: HttpClient,
     private store: Store<AuthState>,
@@ -24,10 +24,10 @@ export class LoginService {
   login(data: LogIn): Observable<any> {
     const result = {
       ...data,
-      role: 'Admin',
+      role: role.ADMIN,
     };
 
-    return this.http.post(this.apiUrl, result).pipe(
+    return this.http.post(`${API_BASE_URL}${login}`, result).pipe(
       map((res: any) => {
         if (res.data && res.data.token) {
           const token = res.data.token;
