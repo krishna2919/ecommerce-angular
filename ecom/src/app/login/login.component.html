@@ -21,24 +21,24 @@
                     >
                       <div class="col-12">
                         <ng-container *ngIf="emailControl">
-                          <app-custom-input
+                          <app-base-input
                             [label]="'Email Address'"
                             [type]="'email'"
                             [formControl]="emailControl"
                             [errorMessage]="
                               'Please enter a valid email address'
                             "
-                          ></app-custom-input>
+                          ></app-base-input>
                         </ng-container>
                       </div>
                       <div class="col-12 mt-2">
                         <ng-container *ngIf="passwordControl">
-                          <app-custom-input
+                          <app-base-input
                             [label]="'Password'"
                             [type]="'password'"
                             [formControl]="passwordControl"
                             [errorMessage]="'Please enter valid password'"
-                          ></app-custom-input>
+                          ></app-base-input>
                         </ng-container>
                       </div>
                       <div class="col-md-12 text-center mt-2">
