@@ -18,13 +18,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { BaseInputComponent } from './base/base-input/base-input.component';
+import { BaseButtonComponent } from './base/base-button/base-button.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent],
+  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -42,18 +42,19 @@
                         </ng-container>
                       </div>
                       <div class="col-md-12 text-center mt-2">
-                        <a>Forgot Password ?</a>
+                        <a [routerLink]="'/forgot-password'"
+                          >Forgot Password ?</a
+                        >
                       </div>
-                      <div class="col-12 mt-3">
+                      <div class="col-12 mt-3 text-center">
                         <div class="d-grid">
-                          <button
-                            mat-raised-button
-                            color="primary"
-                            class="d-grid"
-                            [disabled]="loginForm.invalid || loading"
-                          >
-                            <i class="bx bxs-lock-open"></i> Sign in
-                          </button>
+                          <app-base-button
+                          [color]="'primary'"
+                          [disabled]="loginForm.invalid || loading"
+                          (onClick)="login(loginForm.value)"
+                        >
+                          <i class="bx bxs-lock-open"></i> Sign in
+                          </app-base-button>
                         </div>
                       </div>
                     </form>
