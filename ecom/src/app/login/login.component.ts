@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { LoginService } from '../../app/services/login.service';
 import { LogIn } from '../../app/data-types/login-dataTypes';
 import { CustomValidators } from 'ng2-validation';
@@ -8,7 +13,8 @@ import { AuthService } from '../auth/auth.service';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../auth/auth.actions';
 import { AuthState } from '../auth/auth.reducer';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { status } from '../enums/enum';
+import { ToasterService } from '../services/toaster.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +24,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
   hide = true;
   public loginForm: FormGroup;
+  public emailControl: FormControl;
+  public passwordControl: FormControl;
   public loading: boolean = false;
 
   constructor(
@@ -26,23 +34,25 @@ export class LoginComponent implements OnInit {
     public router: Router,
     private authService: AuthService,
     private store: Store<AuthState>,
-    private snackBar: MatSnackBar
+    private toasterService: ToasterService
   ) {
+    this.emailControl = new FormControl('', [
+      Validators.required,
+      CustomValidators.email,
+    ]);
+    this.passwordControl = new FormControl('', [
+      Validators.required,
+      CustomValidators.rangeLength([6, 15]),
+    ]);
+
     this.loginForm = this.fb.group({
-      email_id: ['', [Validators.required, CustomValidators.email]],
-      password: [
-        '',
-        [Validators.required, CustomValidators.rangeLength([6, 15])],
-      ],
+      email_id: this.emailControl,
+      password: this.passwordControl,
     });
   }
 
   showMessage(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'bottom',
-    });
+    this.toasterService.showMessage(message, action);
   }
 
   ngOnInit() {}
@@ -53,20 +63,18 @@ export class LoginComponent implements OnInit {
       .login(data)
       .subscribe(
         (response: any) => {
-          
           const token = response.data.token;
-          if (response.status === 'success') {
-            this.showMessage('Login successful', 'Dismiss');
+          if (response.status === status.SUCCESS) {
+            this.showMessage(response.message, 'Dismiss');
 
             this.store.dispatch(AuthActions.setToken({ token }));
             this.authService.setLoggedIn(true);
             this.router.navigate(['/dashboard']);
-          } else {
-            this.showMessage('Please enter proper email or password', 'Dismiss');
           }
         },
         (error) => {
-          this.showMessage('Please enter proper email or password', 'Dismiss');
+          const errorMessage = error?.error?.message;
+          this.showMessage(errorMessage, 'Dismiss');
         }
       )
       .add(() => {
