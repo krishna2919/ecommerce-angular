@@ -7,8 +7,8 @@ import { LogIn } from '../../data-types/login-dataTypes';
 import * as AuthActions from '../../auth/auth.actions';
 import { AuthState } from '../../auth/auth.reducer';
 import { AuthService } from '../../auth/auth.service';
-import { API_BASE_URL } from './apiUrl';
-import { login } from './apiRoutes';
+import { baseUrl } from './apiUrl';
+import { Url } from './apiRoutes';
 import { role } from 'src/app/enums/enum';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class LoginService {
       role: role.ADMIN,
     };
 
-    return this.http.post(`${API_BASE_URL}${login}`, result).pipe(
+    return this.http.post(baseUrl.API_BASE_URL + Url.login, result).pipe(
       map((res: any) => {
         if (res.data && res.data.token) {
           const token = res.data.token;

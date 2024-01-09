@@ -1,1 +1,5 @@
-export const login = '/api/user/login';
+export const Url={
+    login : '/api/user/login',
+}
+
+
