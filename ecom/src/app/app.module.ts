@@ -19,19 +19,25 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { BaseInputComponent } from './base/base-input/base-input.component';
 import { BaseButtonComponent } from './base/base-button/base-button.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './dashboard/header/header.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent],
+  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatSlideToggleModule,
     MatButtonModule,
     MatSnackBarModule,
@@ -40,6 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     MatCardModule,
     MatInputModule,
+    MatMenuModule,
+    MatDividerModule,
     MatIconModule,
     StoreModule.forRoot({}, {}),
   ],
