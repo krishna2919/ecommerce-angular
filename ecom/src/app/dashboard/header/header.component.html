@@ -1,0 +1,32 @@
+<header>
+  <div class="topbar d-flex align-items-center">
+    <mat-toolbar class="navbar">
+      <div class="mobile-toggle-menu"><i class="bx bx-menu"></i></div>
+     <app-base-search (searchChange)="handleSearch($event)"></app-base-search>
+      <div class="user-box dropdown">
+        <a
+          class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img
+            src="assets/images/avatars/avatar-2.png"
+            class="user-img"
+            alt="user avatar"
+          />
+          <div class="user-info ps-3">
+            <p class="user-name mb-0">Pauline Seitz</p>
+          </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li *ngFor="let item of dropdownItems">
+            <a class="dropdown-item" (click)="handleDropdownItemClick(item.label)">
+              <i [class]="item.icon"></i><span>{{ item.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar>
+  </div>
+</header>
