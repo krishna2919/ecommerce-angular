@@ -29,4 +29,17 @@ export class HeaderComponent {
       );
     }
   }
+
+  dropdownItems: { icon: string, label: string }[] = [
+    { icon: 'bx bx-user', label: 'Profile' },
+    { icon: 'bx bx-cog', label: 'Settings' },
+    { icon: 'bx bx-home-circle', label: 'Dashboard' },
+    { icon: 'bx bx-dollar-circle', label: 'Earnings' },
+    { icon: 'bx bx-download', label: 'Downloads' },
+    { icon: 'bx bx-log-out-circle', label: 'Logout' }
+  ];
+
+  handleDropdownItemClick(itemLabel: string): void {
+    console.log('Dropdown item clicked:', itemLabel);
+  }
 }
