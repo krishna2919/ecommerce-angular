@@ -1,0 +1,21 @@
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div>
+            <img src="assets/image/logo-icon.png" class="logo-icon" alt="logo icon">
+        </div>
+        <div>
+            <h4 class="logo-text">E-commerce</h4>
+        </div>
+        <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i></div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <li *ngFor="let item of menuItems">
+          <a class="has-arrow">
+            <div class="parent-icon"><i class="{{ item.icon }}"></i></div>
+            <div class="menu-title">{{ item.title }}</div>
+          </a>
+        </li>
+      </ul>
+    <!--end navigation-->
+</div>
