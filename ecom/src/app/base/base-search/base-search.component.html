@@ -1,0 +1,14 @@
+<div class="position-relative search-bar-box">
+    <input
+      matInput
+      type="text"
+      class="form-control search-control"
+      placeholder="Type to search..."
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+    />
+    <span class="position-absolute top-50 search-show translate-middle-y"
+      ><i class="bx bx-search"></i
+    ></span>
+  </div>
+  
