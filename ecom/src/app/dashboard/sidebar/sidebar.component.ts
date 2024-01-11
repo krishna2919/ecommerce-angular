@@ -7,7 +7,7 @@ import { MenuService } from 'src/app/services/menu-service.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  menuItems: { icon: string; title: string }[]=[];
+  menuItems: { icon: string; title: string ,route:string}[]=[];
 
   constructor(private menuService: MenuService) {}
 

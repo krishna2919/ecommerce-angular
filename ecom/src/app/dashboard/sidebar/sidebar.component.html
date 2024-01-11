@@ -11,7 +11,7 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">
         <li *ngFor="let item of menuItems">
-          <a class="has-arrow">
+          <a class="has-arrow" [routerLink]="['/', item.route]">
             <div class="parent-icon"><i class="{{ item.icon }}"></i></div>
             <div class="menu-title">{{ item.title }}</div>
           </a>

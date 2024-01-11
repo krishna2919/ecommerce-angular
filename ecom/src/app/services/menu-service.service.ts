@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class MenuService {
-  getMenuItems(): { icon: string; title: string }[] {
+  getMenuItems(): { icon: string; title: string; route: string }[] {
     return [
-      { icon: 'bx bx-home-circle', title: 'Dashboard' },
-      { icon: 'bx bx-category', title: 'Category' },
-      { icon: 'bx bx-cart', title: 'Product' },
-      { icon: 'bx bx-bar-chart-alt', title: 'Report' },
+      { icon: 'bx bx-home-circle', title: 'Dashboard', route: 'dashboard' },
+      { icon: 'bx bx-category', title: 'Category', route: 'category' },
+      { icon: 'bx bx-cart', title: 'Product', route: 'product' },
+      { icon: 'bx bx-bar-chart-alt', title: 'Report', route: 'report' },
     ];
   }
 }
