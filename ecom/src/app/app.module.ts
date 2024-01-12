@@ -25,13 +25,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BaseSearchComponent } from './base/base-search/base-search.component';
+import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent],
+  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent],
   imports: [
     BrowserModule,
     FormsModule,
