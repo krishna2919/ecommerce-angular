@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,13 +26,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BaseSearchComponent } from './base/base-search/base-search.component';
 import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
+import { authReducer } from './auth/auth.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { BaseTableComponent } from './base/base-table/base-table.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent],
+  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent, BaseTableComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -46,13 +50,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     MatCheckboxModule,
     MatInputModule,
+    MatPaginatorModule,
     HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatMenuModule,
     MatDividerModule,
     MatIconModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ auth: authReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

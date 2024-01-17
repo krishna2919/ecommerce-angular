@@ -1,0 +1,39 @@
+<table class="table align-middle mb-0">
+  <thead class="table-light">
+    <tr>
+      <th *ngFor="let column of columns; let i = index" ngbSortable>
+        {{ column | titlecase }}
+        <span
+          class="sortable-icon"
+          (click)="onSort({ column, direction: sortedColumn === column ? (isAscending ? 'desc' : 'asc') : 'asc' })"
+        >
+          <mat-icon aria-hidden="false" aria-label="Sort" class="arrow-icon">
+            {{
+              sortedColumn === column && isAscending
+                ? "arrow_upward"
+                : "arrow_downward"
+            }}
+          </mat-icon>
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let item of data.slice(
+          (currentPage - 1) * pageSize,
+          currentPage * pageSize
+        )
+      "
+    >
+      <td *ngFor="let column of columns">{{ getColumnValue(item, column) }}</td>
+    </tr>
+  </tbody>
+</table>
+<mat-paginator
+  [pageSize]="pageSize"
+  [pageIndex]="currentPage - 1"
+  [length]="data.length"
+  (page)="onPageChanged($event.pageIndex + 1)"
+></mat-paginator>
