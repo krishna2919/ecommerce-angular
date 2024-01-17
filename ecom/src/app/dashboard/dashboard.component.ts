@@ -206,8 +206,6 @@ export class DashboardComponent {
     this.dashboardService.graphOfCustomer().subscribe((res: any) => {
       if (res && res.status === 'success') {
         this.graphData = res.data;
-        console.log(res);
-
         this.renderGraphChart();
       }
     });
