@@ -1,5 +1,4 @@
-<app-header></app-header>
-<app-sidebar></app-sidebar>
+
 <div class="page-wrapper">
   <div class="page-content">
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
@@ -9,7 +8,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Activate Customer</p>
-                <h4 class="my-1 text-info">{{ activeCustomer }}</h4>
+                <h4 class="my-1 text-info">{{ activeCustomer.ActiveCustomer }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"
@@ -28,7 +27,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Total Customer</p>
-                <h4 class="my-1 text-danger">{{ customer }}</h4>
+                <h4 class="my-1 text-danger">{{ activeCustomer.Customer }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"
@@ -47,7 +46,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Total Category</p>
-                <h4 class="my-1 text-success">{{ category }}</h4>
+                <h4 class="my-1 text-success">{{ activeCustomer.Category }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"
@@ -66,7 +65,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Total Product</p>
-                <h4 class="my-1 text-warning">{{ product }}</h4>
+                <h4 class="my-1 text-warning">{{ activeCustomer.Product}}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"
@@ -83,7 +82,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Total Sales</p>
-                <h4 class="my-1 text-info">{{ totalSales }}</h4>
+                <h4 class="my-1 text-info">{{ activeCustomer.TotalSales }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"
@@ -102,7 +101,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Pending Order</p>
-                <h4 class="my-1 text-danger">{{ pendingOrder }}</h4>
+                <h4 class="my-1 text-danger">{{ activeCustomer.PendingOrder }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"
@@ -121,7 +120,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Total Order</p>
-                <h4 class="my-1 text-success">{{ totalOrder }}</h4>
+                <h4 class="my-1 text-success">{{ activeCustomer.TotalOrder }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"
@@ -140,7 +139,7 @@
             <div class="d-flex align-items-center">
               <div>
                 <p class="mb-0 text-secondary">Confirmed Order</p>
-                <h4 class="my-1 text-warning">{{ confirmedOrder }}</h4>
+                <h4 class="my-1 text-warning">{{ activeCustomer.ConfirmedOrder }}</h4>
               </div>
               <div
                 class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"
@@ -160,7 +159,7 @@
           <div class="card-body">
             <div class="d-flex align-items-center">
               <div>
-                <h6 class="mb-0" style="font-size: 15px">
+                <h6 class="mb-0 font-size">
                   Customer Registration
                 </h6>
               </div>
@@ -173,7 +172,7 @@
       </div>
     </div>
 
-    <h6 class="mb-0 text-uppercase" style="font-size: 17px">Orders</h6>
+    <h6 class="mb-0 text-uppercase font-size">Orders</h6>
     <hr />
 
     <app-base-table
@@ -186,7 +185,7 @@
       (pageChanged)="onPageChanged($event)"
     ></app-base-table>
 
-    <h6 class="mb-0 text-uppercase mt-4" style="font-size: 20px">
+    <h6 class="mb-0 text-uppercase mt-4 font-size">
       Recently Joined Customers
     </h6>
     <hr />
@@ -201,13 +200,6 @@
     ></app-base-table>
   </div>
 </div>
-<div class="overlay toggle-icon"></div>
-<!--end overlay-->
-<!--Start Back To Top Button-->
-<a href="javaScript:;" class="back-to-top"
-  ><i class="bx bxs-up-arrow-alt"></i
-></a>
-<!--End Back To Top Button-->
-<footer class="page-footer">
-  <p class="mb-0">Copyright © 2021. All right reserved.</p>
-</footer>
+
+
+

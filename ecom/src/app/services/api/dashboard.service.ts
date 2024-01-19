@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { AuthState } from '../../auth/auth.reducer';
 import { selectAuthToken } from '../../auth/auth.selector';
@@ -14,72 +14,45 @@ import { Url } from './apiRoutes';
 export class DashboardService {
   constructor(private http: HttpClient, private store: Store<AuthState>) {}
 
-  Count(): Observable<any> {
+  private getRequestHeaders(): Observable<HttpHeaders> {
     return this.store.pipe(
       select(selectAuthToken),
       take(1),
       switchMap((token) => {
-        const reqHeader = new HttpHeaders({
+        const reqHeaders = new HttpHeaders({
           'Content-Type': 'application/json',
           Authorization: `${token}`,
         });
-
-        return this.http.get(baseUrl.API_BASE_URL + Url.countOfData, {
-          headers: reqHeader,
-        });
+        return of(reqHeaders);
       })
     );
+  }
+
+  private makeAuthorizedRequest(url: string): Observable<any> {
+    return this.getRequestHeaders().pipe(
+      switchMap((headers) => {
+        return this.http.get(url, { headers });
+      })
+    );
+  }
+
+  Count(): Observable<any> {
+    const apiUrl = baseUrl.API_BASE_URL + Url.countOfData;
+    return this.makeAuthorizedRequest(apiUrl);
   }
 
   listOfOrder(): Observable<any> {
-    return this.store.pipe(
-      select(selectAuthToken),
-      take(1),
-      switchMap((token) => {
-        const reqHeader = new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        });
-
-        return this.http.get(baseUrl.API_BASE_URL + Url.listOfOrder, {
-          headers: reqHeader,
-        });
-      })
-    );
+    const apiUrl = baseUrl.API_BASE_URL + Url.listOfOrder;
+    return this.makeAuthorizedRequest(apiUrl);
   }
 
   recentlyRegistration(): Observable<any> {
-    return this.store.pipe(
-      select(selectAuthToken),
-      take(1),
-      switchMap((token) => {
-        const reqHeader = new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        });
-
-        return this.http.get(
-          baseUrl.API_BASE_URL + Url.recentlyRegisterCustomer,
-          { headers: reqHeader }
-        );
-      })
-    );
+    const apiUrl = baseUrl.API_BASE_URL + Url.recentlyRegisterCustomer;
+    return this.makeAuthorizedRequest(apiUrl);
   }
 
   graphOfCustomer(): Observable<any> {
-    return this.store.pipe(
-      select(selectAuthToken),
-      take(1),
-      switchMap((token) => {
-        const reqHeader = new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        });
-
-        return this.http.get(baseUrl.API_BASE_URL + Url.graphOfCustomers, {
-          headers: reqHeader,
-        });
-      })
-    );
+    const apiUrl = baseUrl.API_BASE_URL + Url.graphOfCustomers;
+    return this.makeAuthorizedRequest(apiUrl);
   }
 }

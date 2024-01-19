@@ -11,6 +11,7 @@ import {
   Tooltip,
   CategoryScale,
 } from 'chart.js';
+import { status } from '../enums/enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,15 +22,6 @@ export class DashboardComponent {
   sortedColumn: string = 'order_id';
   isAscending: boolean = true;
   activeCustomer: any;
-  customer: any;
-  category: any;
-  product: any;
-  withPrescriptionProduct: any;
-  WithOutPrescriptionProduct: any;
-  totalOrder: any;
-  confirmedOrder: any;
-  pendingOrder: any;
-  totalSales: any;
   listOfOrderTable: any[] = [];
   listOfRegister: any[] = [];
   currentPage: number = 1;
@@ -50,115 +42,48 @@ export class DashboardComponent {
   }
 
   loadData(): void {
-    this.getActiveCustomer();
-    this.getCustomerCount();
-    this.getCategoryCount();
-    this.getConfirmedOrder();
-    this.getPendingOrder();
-    this.getTotalOrder();
-    this.getTotalSales();
-    this.getProductCount();
-    this.getBookingTable();
-    this.getREgistrationTable();
-    this.getGraphData();
+    Promise.all([
+      this.getActiveCustomer(),
+      this.getBookingTable(),
+      this.getREgistrationTable(),
+      this.getGraphData(),
+    ])
   }
+  
 
-  getActiveCustomer() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success' && res.data) {
-        this.activeCustomer = res.data.ActiveCustomer.toString();
-      }
+  getActiveCustomer(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService.Count().subscribe((res: any) => {
+        if (res && res.status === status.SUCCESS && res.data) {
+          this.activeCustomer = res.data;
+        }
+        resolve();
+      });
+   
     });
   }
 
-  getCustomerCount() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.customer = res.data.Customer.toString();
-      }
+  getBookingTable(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService.listOfOrder().subscribe((res: any) => {
+        if (res && res.status === status.SUCCESS) {
+          this.listOfOrderTable = res.data;
+          this.totalPages = Math.ceil(res.data.length / this.pageSize);
+        }
+        resolve();
+      });
     });
   }
 
-  getCategoryCount() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.category = res.data.Category.toString();
-      }
-    });
-  }
-
-  getProductCount() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.product = res.data.Product.toString();
-      }
-    });
-  }
-
-  getWithPrescription() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.withPrescriptionProduct = res.data.withPrescription.toString();
-      }
-    });
-  }
-
-  getProductWithOutPrescription() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.WithOutPrescriptionProduct =
-          res.data.productWithOutPrescription.toString();
-      }
-    });
-  }
-
-  getTotalOrder() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.totalOrder = res.data.TotalOrder.toString();
-      }
-    });
-  }
-
-  getConfirmedOrder() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.confirmedOrder = res.data.ConfirmedOrder.toString();
-      }
-    });
-  }
-
-  getPendingOrder() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.pendingOrder = res.data.PendingOrder.toString();
-      }
-    });
-  }
-
-  getTotalSales() {
-    this.dashboardService.Count().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.totalSales = res.data.TotalSales.toString();
-      }
-    });
-  }
-
-  getBookingTable() {
-    this.dashboardService.listOfOrder().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.listOfOrderTable = res.data;
-        this.totalPages = Math.ceil(res.data.length / this.pageSize);
-      }
-    });
-  }
-
-  getREgistrationTable() {
-    this.dashboardService.recentlyRegistration().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.listOfRegister = res.data;
-        this.totalPages = Math.ceil(res.data.length / this.pageSize);
-      }
+  getREgistrationTable(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService.recentlyRegistration().subscribe((res: any) => {
+        if (res && res.status === status.SUCCESS) {
+          this.listOfRegister = res.data;
+          this.totalPages = Math.ceil(res.data.length / this.pageSize);
+        }
+        resolve();
+      });
     });
   }
 
@@ -202,12 +127,15 @@ export class DashboardComponent {
     });
   }
 
-  getGraphData() {
-    this.dashboardService.graphOfCustomer().subscribe((res: any) => {
-      if (res && res.status === 'success') {
-        this.graphData = res.data;
-        this.renderGraphChart();
-      }
+  getGraphData(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.dashboardService.graphOfCustomer().subscribe((res: any) => {
+        if (res && res.status === status.SUCCESS) {
+          this.graphData = res.data;
+          this.renderGraphChart();
+        }
+        resolve();
+      });
     });
   }
 }

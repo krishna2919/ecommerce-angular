@@ -1,20 +1,15 @@
-import {
-  Component,
-  Input,
-  QueryList,
-  ViewChildren,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, Input, QueryList, ViewChildren, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbdSortableHeader, SortEvent } from 'src/app/NgbdSortableHeader';
-import { SearchService } from 'src/app/services/search.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-base-table',
   templateUrl: './base-table.component.html',
   styleUrls: ['./base-table.component.css'],
 })
-export class BaseTableComponent {
+export class BaseTableComponent implements OnChanges {
   @Input() data: any[] = [];
   @Input() pageSize: number = 7;
   @Input() currentPage: number = 1;
@@ -22,17 +17,36 @@ export class BaseTableComponent {
   @Input() sortedColumn: string = '';
   @Input() isAscending: boolean = true;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
-  @Output() searchChange: EventEmitter<string> = new EventEmitter<string>();
+  dataSource: MatTableDataSource<any>;
+  private searchSubject = new Subject<string>();
 
-  constructor(private searchService: SearchService) {}
-
-  ngOnInit() {}
-
-  searchQuery: string = '';
-
-  onSearch() {
-    this.searchChange.emit(this.searchQuery);
+  constructor() {
+    this.dataSource = new MatTableDataSource<any>(this.data);
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      this.dataSource = new MatTableDataSource<any>(this.data);
+      this.dataSource.filter = '';
+    }
+  }
+  
+
+  ngOnInit() {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      this.dataSource.filter = value.trim().toLowerCase();
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(filterValue);
+    
+  }
+
   getColumnValue(item: any, column: string): any {
     if (item.hasOwnProperty(column)) {
       return item[column];
@@ -49,12 +63,12 @@ export class BaseTableComponent {
     this.isAscending = direction === 'asc';
 
     this.data.sort((a, b) => {
-      const aValue = this.getColumnValue(a, column);
-      const bValue = this.getColumnValue(b, column);
+      const firstValue = this.getColumnValue(a, column);
+      const secondValue = this.getColumnValue(b, column);
 
-      if (aValue < bValue) {
+      if (firstValue < secondValue) {
         return this.isAscending ? -1 : 1;
-      } else if (aValue > bValue) {
+      } else if (firstValue > secondValue) {
         return this.isAscending ? 1 : -1;
       } else {
         return 0;

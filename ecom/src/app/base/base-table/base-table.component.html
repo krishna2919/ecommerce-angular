@@ -1,4 +1,12 @@
-<table class="table align-middle mb-0">
+<div class="row justify-content-end">
+  <div class="col-md-4">
+<mat-form-field>
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" #input />
+</mat-form-field>
+</div>
+</div>
+<table mat-table class="table align-middle mb-0">
   <thead class="table-light">
     <tr>
       <th *ngFor="let column of columns; let i = index" ngbSortable>
