@@ -25,10 +25,18 @@
                             [label]="'Email Address'"
                             [type]="'email'"
                             [formControl]="emailControl"
-                            [errorMessage]="
-                              'Please enter a valid email address'
-                            "
+                            [errorMessage]="'Email is required'"
                           ></app-base-input>
+
+                          <div
+                            *ngIf="
+                              emailControl.hasError('pattern') &&
+                              emailControl.touched
+                            "
+                            class="text-danger"
+                          >
+                            Please enter a valid email address.
+                          </div>
                         </ng-container>
                       </div>
                       <div class="col-12 mt-2">
@@ -37,8 +45,18 @@
                             [label]="'Password'"
                             [type]="'password'"
                             [formControl]="passwordControl"
-                            [errorMessage]="'Please enter valid password'"
+                            [errorMessage]="'Password is required'"
                           ></app-base-input>
+
+                          <div
+                            *ngIf="
+                              passwordControl.hasError('pattern') &&
+                              passwordControl.touched
+                            "
+                            class="text-danger"
+                          >
+                            Please enter a valid Password.
+                          </div>
                         </ng-container>
                       </div>
                       <div class="col-md-12 text-center mt-2">

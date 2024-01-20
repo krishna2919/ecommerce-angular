@@ -1,8 +1,19 @@
-import { Component, Input, QueryList, ViewChildren, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { NgbdSortableHeader, SortEvent } from 'src/app/NgbdSortableHeader';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  ViewChildren,
+  QueryList,
+  ViewChild,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NgbdSortableHeader, SortEvent } from 'src/app/NgbdSortableHeader';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-base-table',
@@ -17,34 +28,39 @@ export class BaseTableComponent implements OnChanges {
   @Input() sortedColumn: string = '';
   @Input() isAscending: boolean = true;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
-  dataSource: MatTableDataSource<any>;
+  totalItemsCount: number = 0;
+  displayedData: any[] = [];
+
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   private searchSubject = new Subject<string>();
 
-  constructor() {
-    this.dataSource = new MatTableDataSource<any>(this.data);
+  constructor() {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
-      this.dataSource = new MatTableDataSource<any>(this.data);
+      this.dataSource.data = this.data;
       this.dataSource.filter = '';
+      this.updateDisplayedData();
     }
   }
-  
 
   ngOnInit() {
-    this.searchSubject.pipe(
-      debounceTime(300),
-      distinctUntilChanged()
-    ).subscribe(value => {
-      this.dataSource.filter = value.trim().toLowerCase();
-    });
+    this.searchSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((value) => {
+        this.dataSource.filter = value.trim().toLowerCase();
+      });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.searchSubject.next(filterValue);
-    
   }
 
   getColumnValue(item: any, column: string): any {
@@ -74,9 +90,20 @@ export class BaseTableComponent implements OnChanges {
         return 0;
       }
     });
+
+    this.dataSource.data = this.data;
+    this.updateDisplayedData();
   }
 
-  onPageChanged(page: number): void {
-    this.pageChanged.emit(page);
+  onPageChanged(newPage: number) {
+    this.currentPage = newPage;
+    this.updateDisplayedData();
+    this.pageChanged.emit(newPage);
+  }
+
+  updateDisplayedData() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.displayedData = this.dataSource.data.slice(startIndex, endIndex);
   }
 }

@@ -38,18 +38,17 @@ export class DashboardComponent {
   onPageChanged(page: number): void {
     this.currentPage = page;
     this.getBookingTable();
-    this.getREgistrationTable();
+    this.getRegistrationTable();
   }
 
   loadData(): void {
     Promise.all([
       this.getActiveCustomer(),
       this.getBookingTable(),
-      this.getREgistrationTable(),
+      this.getRegistrationTable(),
       this.getGraphData(),
     ])
   }
-  
 
   getActiveCustomer(): Promise<void> {
     return new Promise<void>((resolve) => {
@@ -59,7 +58,6 @@ export class DashboardComponent {
         }
         resolve();
       });
-   
     });
   }
 
@@ -75,7 +73,7 @@ export class DashboardComponent {
     });
   }
 
-  getREgistrationTable(): Promise<void> {
+  getRegistrationTable(): Promise<void> {
     return new Promise<void>((resolve) => {
       this.dashboardService.recentlyRegistration().subscribe((res: any) => {
         if (res && res.status === status.SUCCESS) {

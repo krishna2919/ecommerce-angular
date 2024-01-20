@@ -38,11 +38,13 @@ export class LoginComponent implements OnInit {
   ) {
     this.emailControl = new FormControl('', [
       Validators.required,
-      CustomValidators.email,
+      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
     ]);
     this.passwordControl = new FormControl('', [
       Validators.required,
-      CustomValidators.rangeLength([6, 15]),
+      Validators.pattern(
+        '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
+      ),
     ]);
 
     this.loginForm = this.fb.group({
