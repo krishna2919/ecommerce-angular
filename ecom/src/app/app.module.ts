@@ -35,18 +35,22 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CategoryComponent } from './category/category.component';
+import { BaseCardComponent } from './base/base-card/base-card.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent, BaseTableComponent, FooterComponent, LayoutComponent, CategoryComponent],
+  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent, BaseTableComponent, FooterComponent, LayoutComponent, BaseCardComponent,CategoryComponent],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    MatTableModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatToolbarModule,

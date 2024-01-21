@@ -1,157 +1,94 @@
-
 <div class="page-wrapper">
   <div class="page-content">
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
       <div class="col">
-        <div class="card radius-10 border-start border-0 border-3 border-info">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Activate Customer</p>
-                <h4 class="my-1 text-info">{{ activeCustomer.ActiveCustomer }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"
-              >
-                <i class="bx bxs-cart"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Activate Customer'"
+          [value]="activeCustomer.ActiveCustomer"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div
-          class="card radius-10 border-start border-0 border-3 border-danger"
-        >
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Total Customer</p>
-                <h4 class="my-1 text-danger">{{ activeCustomer.Customer }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"
-              >
-                <i class="bx bxs-wallet"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Total Customer'"
+          [value]="activeCustomer.Customer"
+          [icon]="'bx bxs-wallet'"
+          [cardClass]="'border-start border-0 border-3 border-danger'"
+          [valueClass]="'text-danger'"
+          [iconClass]="'bg-gradient-bloody text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div
-          class="card radius-10 border-start border-0 border-3 border-success"
-        >
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Total Category</p>
-                <h4 class="my-1 text-success">{{ activeCustomer.Category }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"
-              >
-                <i class="bx bxs-bar-chart-alt-2"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Total Category'"
+          [value]="activeCustomer.Category"
+          [icon]="'bx bxs-bar-chart-alt-2'"
+          [cardClass]="'border-start border-0 border-3 border-success'"
+          [valueClass]="'text-success'"
+          [iconClass]="'bg-gradient-ohhappiness text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div
-          class="card radius-10 border-start border-0 border-3 border-warning"
-        >
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Total Product</p>
-                <h4 class="my-1 text-warning">{{ activeCustomer.Product}}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"
-              >
-                <i class="bx bxs-group"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Total Product'"
+          [value]="activeCustomer.Product"
+          [icon]="'bx bxs-group'"
+          [cardClass]="'border-start border-0 border-3 border-warning'"
+          [valueClass]="'text-warning'"
+          [iconClass]="'bg-gradient-blooker text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div class="card radius-10 border-start border-0 border-3 border-info">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Total Sales</p>
-                <h4 class="my-1 text-info">{{ activeCustomer.TotalSales }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"
-              >
-                <i class="bx bxs-cart"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Total Sales'"
+          [value]="activeCustomer.TotalSales"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div
-          class="card radius-10 border-start border-0 border-3 border-danger"
-        >
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Pending Order</p>
-                <h4 class="my-1 text-danger">{{ activeCustomer.PendingOrder }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"
-              >
-                <i class="bx bxs-wallet"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Pending Order'"
+          [value]="activeCustomer.PendingOrder"
+          [icon]="'bx bxs-wallet'"
+          [cardClass]="'border-start border-0 border-3 border-danger'"
+          [valueClass]="'text-danger'"
+          [iconClass]="'bg-gradient-bloody text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div
-          class="card radius-10 border-start border-0 border-3 border-success"
-        >
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Total Order</p>
-                <h4 class="my-1 text-success">{{ activeCustomer.TotalOrder }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"
-              >
-                <i class="bx bxs-bar-chart-alt-2"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Total Order'"
+          [value]="activeCustomer.TotalOrder"
+          [icon]="'bx bxs-bar-chart-alt-2'"
+          [cardClass]="'border-start border-0 border-3 border-success'"
+          [valueClass]="'text-success'"
+          [iconClass]="'bg-gradient-ohhappiness text-white'"
+        ></app-base-card>
       </div>
+
       <div class="col">
-        <div
-          class="card radius-10 border-start border-0 border-3 border-warning"
-        >
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div>
-                <p class="mb-0 text-secondary">Confirmed Order</p>
-                <h4 class="my-1 text-warning">{{ activeCustomer.ConfirmedOrder }}</h4>
-              </div>
-              <div
-                class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"
-              >
-                <i class="bx bxs-group"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-base-card
+          [title]="'Confirmed Order'"
+          [value]="activeCustomer.ConfirmedOrder"
+          [icon]="'bx bxs-group'"
+          [cardClass]="'border-start border-0 border-3 border-warning'"
+          [valueClass]="'text-warning'"
+          [iconClass]="'bg-gradient-blooker text-white'"
+        ></app-base-card>
       </div>
     </div>
-    <!--end row-->
 
     <div class="row">
       <div class="col-12">
@@ -159,9 +96,7 @@
           <div class="card-body">
             <div class="d-flex align-items-center">
               <div>
-                <h6 class="mb-0 font-size">
-                  Customer Registration
-                </h6>
+                <h6 class="mb-0 font-size">Customer Registration</h6>
               </div>
             </div>
             <div class="chart-container-2">
@@ -200,6 +135,3 @@
     ></app-base-table>
   </div>
 </div>
-
-
-
