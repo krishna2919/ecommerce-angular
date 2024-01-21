@@ -1,0 +1,65 @@
+<div class="page-wrapper">
+  <div class="page-content">
+    <div class="row">
+      <div class="col-8">
+        <h6 class="mb-0 text-uppercase font-size">Category</h6>
+      </div>
+      <div class="col-4 text-right">
+        <app-base-button [color]="'primary'" (click)="toggleCategoryForm()">Add Category</app-base-button>
+      </div>
+    </div>
+    <hr />
+
+    <app-base-table
+      [data]="listOfCategoryTable"
+      [pageSize]="pageSize"
+      [currentPage]="currentPage"
+      [columns]="['id', 'name', 'is_archived', 'Actions']"
+      [sortedColumn]="sortedColumn"
+      [isAscending]="isAscending"
+      (pageChanged)="onPageChanged($event)"
+    ></app-base-table>
+
+    <!-- Category Form Modal -->
+    <div *ngIf="categoryFormVisible">
+      <div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="categoryFormModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Category</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelCategoryForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <app-base-input
+                [label]="'Name'"
+                [placeholder]="'Enter category name'"
+                [formControl]="nameFormControl"
+              ></app-base-input>
+
+              <app-base-input
+                [label]="'Description'"
+                [placeholder]="'Enter category description'"
+                [formControl]="descriptionFormControl"
+              ></app-base-input>
+
+              <app-base-input
+                [label]="'Image'"
+                [placeholder]="'Enter image URL'"
+                [formControl]="imageFormControl"
+              ></app-base-input>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cancelCategoryForm()">Cancel</button>
+              <button type="button" class="btn btn-primary" (click)="addCategory()">Add Category</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-backdrop fade show"></div>
+    </div>
+    <!-- End Category Form Modal -->
+
+  </div>
+</div>
