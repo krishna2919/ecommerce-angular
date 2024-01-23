@@ -1,2 +1,137 @@
-<app-header></app-header>
-<app-sidebar></app-sidebar>
+<div class="page-wrapper">
+  <div class="page-content">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+      <div class="col">
+        <app-base-card
+          [title]="'Activate Customer'"
+          [value]="activeCustomer.ActiveCustomer"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Total Customer'"
+          [value]="activeCustomer.Customer"
+          [icon]="'bx bxs-wallet'"
+          [cardClass]="'border-start border-0 border-3 border-danger'"
+          [valueClass]="'text-danger'"
+          [iconClass]="'bg-gradient-bloody text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Total Category'"
+          [value]="activeCustomer.Category"
+          [icon]="'bx bxs-bar-chart-alt-2'"
+          [cardClass]="'border-start border-0 border-3 border-success'"
+          [valueClass]="'text-success'"
+          [iconClass]="'bg-gradient-ohhappiness text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Total Product'"
+          [value]="activeCustomer.Product"
+          [icon]="'bx bxs-group'"
+          [cardClass]="'border-start border-0 border-3 border-warning'"
+          [valueClass]="'text-warning'"
+          [iconClass]="'bg-gradient-blooker text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Total Sales'"
+          [value]="activeCustomer.TotalSales"
+          [icon]="'bx bxs-cart'"
+          [cardClass]="'border-start border-0 border-3 border-info'"
+          [valueClass]="'text-info'"
+          [iconClass]="'bg-gradient-scooter text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Pending Order'"
+          [value]="activeCustomer.PendingOrder"
+          [icon]="'bx bxs-wallet'"
+          [cardClass]="'border-start border-0 border-3 border-danger'"
+          [valueClass]="'text-danger'"
+          [iconClass]="'bg-gradient-bloody text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Total Order'"
+          [value]="activeCustomer.TotalOrder"
+          [icon]="'bx bxs-bar-chart-alt-2'"
+          [cardClass]="'border-start border-0 border-3 border-success'"
+          [valueClass]="'text-success'"
+          [iconClass]="'bg-gradient-ohhappiness text-white'"
+        ></app-base-card>
+      </div>
+
+      <div class="col">
+        <app-base-card
+          [title]="'Confirmed Order'"
+          [value]="activeCustomer.ConfirmedOrder"
+          [icon]="'bx bxs-group'"
+          [cardClass]="'border-start border-0 border-3 border-warning'"
+          [valueClass]="'text-warning'"
+          [iconClass]="'bg-gradient-blooker text-white'"
+        ></app-base-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card radius-10">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <h6 class="mb-0 font-size">Customer Registration</h6>
+              </div>
+            </div>
+            <div class="chart-container-2">
+              <canvas id="chart1" style="height: 70px"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h6 class="mb-0 text-uppercase font-size">Orders</h6>
+    <hr />
+
+    <app-base-table
+      [data]="listOfOrderTable"
+      [pageSize]="pageSize"
+      [currentPage]="currentPage"
+      [columns]="['order_id', 'userName', 'status', 'total_amount']"
+      [sortedColumn]="sortedColumn"
+      [isAscending]="isAscending"
+      (pageChanged)="onPageChanged($event)"
+    ></app-base-table>
+
+    <h6 class="mb-0 text-uppercase mt-4 font-size">
+      Recently Joined Customers
+    </h6>
+    <hr />
+    <app-base-table
+      [data]="listOfRegister"
+      [pageSize]="pageSize"
+      [currentPage]="currentPage"
+      [columns]="['first_name', 'email_id', 'phone_no', 'created_at']"
+      [sortedColumn]="sortedColumn"
+      [isAscending]="isAscending"
+      (pageChanged)="onPageChanged($event)"
+    ></app-base-table>
+  </div>
+</div>

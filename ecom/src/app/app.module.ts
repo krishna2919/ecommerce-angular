@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,39 +20,58 @@ import { StoreModule } from '@ngrx/store';
 import { BaseInputComponent } from './base/base-input/base-input.component';
 import { BaseButtonComponent } from './base/base-button/base-button.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeaderComponent } from './dashboard/header/header.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BaseSearchComponent } from './base/base-search/base-search.component';
-import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { authReducer } from './auth/auth.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { BaseTableComponent } from './base/base-table/base-table.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { FooterComponent } from './layout/footer/footer.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { BaseCardComponent } from './base/base-card/base-card.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent],
+  declarations: [AppComponent, LoginComponent, BaseInputComponent, BaseButtonComponent, DashboardComponent, HeaderComponent, BaseSearchComponent, SidebarComponent, BaseTableComponent, FooterComponent, LayoutComponent, BaseCardComponent],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    MatTableModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatToolbarModule,
     MatSlideToggleModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     MatCheckboxModule,
     MatInputModule,
+    MatPaginatorModule,
     HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatMenuModule,
     MatDividerModule,
     MatIconModule,
-    StoreModule.forRoot({}, {}),
+    NgxUiLoaderModule,
+    StoreModule.forRoot({ auth: authReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
